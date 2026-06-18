@@ -2,18 +2,40 @@ import os
 import time
 
 productos = []
-#producto = {
-#    "nombre" = "",
-#    "stock" = "" ,
-#    "precio" = "" ,
-#    "disponible" = ""
-#}
+
 
 def limpiar():
     os.system("cls")
     
 def pausar():
     time.sleep(2)
+    
+    
+def menu():
+    print("========== MENÚ PRINCIPAL ==========")
+    print("1. Agregar producto")
+    print("2. Buscar producto")
+    print("3. Eliminar producto")
+    print("4. Actualizar disponibilidad")
+    print("5. Mostrar productos")
+    print("6. Salir")
+    print("=====================================")
+    
+def accion():
+    try:
+        while True:
+            respuesta = int(input("Ingrese la accion que desea realizar"))
+            if respuesta <=6 and respuesta >= 1:
+                return respuesta
+            else:
+                print("el numero debe de estar entre las opciones definidas")
+    except:
+        print("tiene que ser un numero tu respuesta")
+        
+
+
+
+
 
 def _validar_str(string):
     if len(string) > 0:
@@ -29,10 +51,15 @@ def _validar_int(numero):
     else:
         return True
         
-    
+def _validar_float_(numero):
+    if numero >0:
+        return True
+    else:
+        return False
+        
 def agregar_producto(productos):
     while True:
-        nombre = input("ingrese el nombre del producto\n").title().split()
+        nombre = input("ingrese el nombre del producto\n").title()
         if _validar_str(nombre) == True:
             break
 
@@ -44,3 +71,43 @@ def agregar_producto(productos):
                 break
         except:
             print("debes ingresar un numero")
+
+    while True:
+        try:
+            precio = float(input("ingrese el precio del producto:\n"))
+            if _validar_float_(precio) == True:
+                break
+        except:
+            print("debes ingresar un numero valido")
+    producto = {
+        "nombre" : nombre,
+        "stock" : stock,
+        "precio": precio,
+        "estado": False
+    }
+    productos.append(producto)
+
+def _verificar_estado_(x):
+    if x["estado"] == True:
+        return "en stock"
+    else:
+        return "sin stock"
+    
+    
+    
+def buscar_producto():
+    if len(productos) == 0:
+        print("no se puede buscar ya que no hay datos registrados")
+    
+    else:
+        busqueda = input("ingrese el nombre del producto a buscar").title()
+        for p in productos:
+            if p["nombre"] == busqueda:
+                print(f"PRODUCTO ENCONTRADO")
+                print(f"nombre: {p["nombre"]}")
+                print(f"stock: {p["stock"]}")
+                print(f"precio: {p["precio"]}")
+                print(f"estado: {_verificar_estado_(p)}")
+                break
+            else:
+                print("producto no encontrado")
