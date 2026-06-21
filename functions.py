@@ -8,7 +8,7 @@ def limpiar():
     os.system("cls")
     
 def pausar():
-    time.sleep(2)
+    time.sleep(5)
     
     
 def menu():
@@ -45,7 +45,7 @@ def _validar_str(string):
         return False
 
 def _validar_int(numero):
-    if numero <= 0:
+    if numero < 0:
         print("el numero debe de ser un entero positivo")
         return False
     else:
@@ -111,3 +111,37 @@ def buscar_producto():
                 break
             else:
                 print("producto no encontrado")
+                
+def eliminar_producto():
+    if len(productos) == 0:
+        print("no se puede eliminar ya que no hay datos registrados")
+    else:
+        busqueda = input("ingrese el nombre del producto a eliminar").title()
+        iterador = 0
+        while iterador < len(productos):
+            if productos[iterador]["nombre"] == busqueda:
+                print("PRODUCTO ELIMINADO")
+                productos.pop(iterador)
+                break
+            else:
+                iterador+=1
+                
+                
+def actualizar_disponibilidad():
+    contador = 0
+    while contador < len(productos):
+        if productos[contador]["stock"] != 0:
+            productos[contador]["estado"] = "en stock"
+            contador += 1
+        else:
+            productos[contador]["estado"] = "sin stock"
+            contador += 1
+        
+def mostrar_productos():
+    actualizar_disponibilidad()
+    print(f"LISTA DE PRODUCTOS")
+    for d in productos:
+        print(f"nombre: {d["nombre"]}")
+        print(f"stock: {d["stock"]}")
+        print(f"precio: {d["precio"]}")
+        print(f"estado: {d["estado"]}")
