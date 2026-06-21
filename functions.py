@@ -96,6 +96,7 @@ def _verificar_estado_(x):
     
     
 def buscar_producto():
+    actualizar_disponibilidad()
     if len(productos) == 0:
         print("no se puede buscar ya que no hay datos registrados")
     
